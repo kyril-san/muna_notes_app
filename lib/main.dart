@@ -8,9 +8,8 @@ import 'package:muna_notes_app/firebase_options.dart';
 import 'package:muna_notes_app/screens/homepage/home_page.dart';
 import 'package:muna_notes_app/screens/login/login_page.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
