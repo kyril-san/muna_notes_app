@@ -28,7 +28,7 @@ class FirebaseAuthProvider implements AuthProvider {
     if (user != null) {
       await user.sendEmailVerification();
     } else {
-      // print('something is wrong somewhere');
+      throw EmailVerificationErrorExceptions();
     }
   }
 
@@ -36,14 +36,26 @@ class FirebaseAuthProvider implements AuthProvider {
   Future<AuthUser> login(
       {required String email, required String password}) async {
     try {
-      await initialize();
+      // await initialize();
       await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+          .signInWithEmailAndPassword(email: email, password: password);
       final user = currentuser;
       if (user != null) {
         return user;
       } else {
-        throw LoginErrorException();
+        throw UserNotLoggedInException();
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-email') {
+        throw InvalidEmailException();
+      } else if (e.code == 'user-disabled') {
+        throw UserDisabledException();
+      } else if (e.code == 'user-not-found') {
+        throw UserNotFoundException();
+      } else if (e.code == 'wrong-password') {
+        throw WrondPasswordException();
+      } else {
+        throw GenericAuthExceptions();
       }
     } catch (_) {
       throw GenericAuthExceptions();
@@ -56,7 +68,7 @@ class FirebaseAuthProvider implements AuthProvider {
     if (user != null) {
       await FirebaseAuth.instance.signOut();
     } else {
-      // print('error');
+      throw GenericAuthExceptions();
     }
   }
 
@@ -70,6 +82,18 @@ class FirebaseAuthProvider implements AuthProvider {
       final user = currentuser;
       if (user != null) {
         return user;
+      } else {
+        throw InvalidCredentialsException();
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        throw EmailAlreadyInException();
+      } else if (e.code == 'invalid-email') {
+        throw InvalidEmailException();
+      } else if (e.code == 'operation-not-allowed') {
+        throw OperationNotFoundException();
+      } else if (e.code == 'weak-password') {
+        throw WeakPasswordException();
       } else {
         throw GenericAuthExceptions();
       }
