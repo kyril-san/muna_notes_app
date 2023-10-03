@@ -1,7 +1,7 @@
 import 'package:muna_notes_app/service/auth/auth_provider.dart';
 import 'package:muna_notes_app/service/auth/auth_user.dart';
 
-class Authservice extends AuthProvider {
+class Authservice implements AuthProvider {
   final AuthProvider provider;
 
   Authservice(this.provider);
@@ -20,7 +20,7 @@ class Authservice extends AuthProvider {
   }
 
   @override
-  Future<void> login({required String email, required String password}) {
+  Future<AuthUser> login({required String email, required String password}) {
     return provider.login(email: email, password: password);
   }
 
@@ -30,7 +30,7 @@ class Authservice extends AuthProvider {
   }
 
   @override
-  Future<void> register({required String email, required String password}) {
+  Future<AuthUser> register({required String email, required String password}) {
     return provider.register(email: email, password: password);
   }
 }

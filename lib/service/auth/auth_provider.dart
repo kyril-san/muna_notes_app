@@ -3,12 +3,12 @@ import 'package:muna_notes_app/service/auth/auth_user.dart';
 abstract class AuthProvider {
   AuthUser? get currentuser;
 
-  Future<void> login({
+  Future<AuthUser> login({
     required String email,
     required String password,
   });
 
-  Future<void> register({
+  Future<AuthUser> register({
     required String email,
     required String password,
   });
