@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_import
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:muna_notes_app/const/general_colors.dart';
 import 'package:muna_notes_app/firebase_options.dart';
 import 'package:muna_notes_app/screens/homepage/home_page.dart';
+import 'package:muna_notes_app/screens/login/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
                 primary: Colors.white),
             useMaterial3: true,
           ),
-          home: HomePage()),
+          home: LoginPage()),
     );
   }
 }
