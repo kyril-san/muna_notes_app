@@ -8,7 +8,7 @@ import 'package:muna_notes_app/screens/login/widgets/login_widgets.dart';
 import 'package:muna_notes_app/screens/register/register.dart';
 import 'package:muna_notes_app/service/auth/auth_exceptions.dart';
 import 'package:muna_notes_app/service/auth/bloc/auth_bloc.dart';
-import 'package:muna_notes_app/util/dialogs/show_error_dialog.dart';
+import 'package:muna_notes_app/utils/dialogs/show_error_dialog.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -37,78 +37,87 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(
+    return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) async {
         if (state is AuthStateLoggedOut) {
           if (state.exception is GenericAuthExceptions) {
-            await showErrorDialog(context, text: 'Error');
+            await showErrorDialog(context, text: 'Authentication Error!!!');
+          } else if (state is InvalidCredentialsException) {
+            await showErrorDialog(context, text: 'Invalid Credentials');
+          } else if (state is InvalidEmailException) {
+            await showErrorDialog(context, text: 'Invalid Email Address Used');
+          } else if (state is UserDisabledException) {
+            await showErrorDialog(context,
+                text: 'Your Account has been Disabled.');
+          } else if (state is UserNotFoundException) {
+            await showErrorDialog(context, text: 'Your Account does not exist');
+          } else if (state is WrondPasswordException) {
+            await showErrorDialog(context, text: 'Your Password is Incorrect');
           }
         }
       },
-      builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(
-              'Login Page',
-              style: AppTextstyle.nunitoRegularwhite,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            'Login Page',
+            style: AppTextstyle.nunitoRegularwhite,
+          ),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            appTextfield(
+              context,
+              hint: 'Enter in Your Email Address',
+              icon: Icons.email,
+              controller: _email,
             ),
-          ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              appTextfield(
-                context,
-                hint: 'Enter in Your Email Address',
-                icon: Icons.email,
-                controller: _email,
-              ),
-              SizedBox(height: 20.h),
-              appTextfield(
-                context,
-                hint: 'Enter your Password',
-                icon: Icons.lock,
-                suffixicon: Icons.visibility,
-                controller: _password,
-              ),
-              SizedBox(height: 20.h),
-              appActionButtion(
-                context,
-                text: 'Login',
-                func: () {
-                  final email = _email.text;
-                  final password = _password.text;
-                  context
-                      .read<AuthBloc>()
-                      .add(AuthEventLogIn(email: email, password: password));
-                },
-              ),
-              SizedBox(height: 50.h),
-              Row(
-                children: [
-                  Expanded(
-                    child: Divider(
-                      color: Colors.white,
-                    ),
+            SizedBox(height: 20.h),
+            appTextfield(
+              context,
+              hint: 'Enter your Password',
+              icon: Icons.lock,
+              suffixicon: Icons.visibility,
+              controller: _password,
+            ),
+            SizedBox(height: 20.h),
+            appActionButtion(
+              context,
+              text: 'Login',
+              func: () async {
+                final email = _email.text;
+                final password = _password.text;
+                context
+                    .read<AuthBloc>()
+                    .add(AuthEventLogIn(email: email, password: password));
+              },
+            ),
+            SizedBox(height: 50.h),
+            Row(
+              children: [
+                Expanded(
+                  child: Divider(
+                    color: Colors.white,
                   ),
-                  // Text(" If you don't have an account"),
-                  TextButton(
-                    onPressed: () {
-                      context.read<AuthBloc>().add(AuthEventShouldRegister());
-                    },
-                    child: Text('If you don\'t have an account, Click Here'),
+                ),
+                // Text(" If you don't have an account"),
+                TextButton(
+                  onPressed: () {
+                    context.read<AuthBloc>().add(AuthEventShouldRegister());
+                  },
+                  child: Text('If you don\'t have an account, Click Here'),
+                ),
+                Expanded(
+                  child: Divider(
+                    color: Colors.white,
                   ),
-                  Expanded(
-                    child: Divider(
-                      color: Colors.white,
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        );
-      },
+                )
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }

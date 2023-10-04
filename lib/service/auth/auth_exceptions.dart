@@ -12,7 +12,7 @@ class UserDisabledException extends AuthExceptions {}
 
 class WrondPasswordException extends AuthExceptions {}
 
-class EmailAlreadyInException extends AuthExceptions {}
+class EmailAlreadyInUseException extends AuthExceptions {}
 
 class OperationNotFoundException extends AuthExceptions {}
 

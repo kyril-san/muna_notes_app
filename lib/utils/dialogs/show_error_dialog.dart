@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Future<void> showErrorDialog(BuildContext context, {String? text}) {
+Future<void> showErrorDialog(BuildContext context, {required String text}) {
   return showDialog(
       context: context,
       builder: (context) {
@@ -17,7 +17,7 @@ Future<void> showErrorDialog(BuildContext context, {String? text}) {
           ),
           title: Text('Error'),
           content: Text(
-            text!,
+            text,
             textAlign: TextAlign.center,
           ),
         );

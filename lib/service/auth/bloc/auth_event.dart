@@ -21,9 +21,9 @@ class AuthEventLogIn extends AuthEvent {
 }
 
 class AuthEventLoggedOut extends AuthEvent {
-  final Exception? exception;
+  // final Exception? exception;
 
-  const AuthEventLoggedOut(this.exception);
+  const AuthEventLoggedOut();
 }
 
 class AuthEventRegistering extends AuthEvent {

@@ -32,7 +32,7 @@ class EmailVerifyPage extends StatelessWidget {
                     style: TextButton.styleFrom(
                         backgroundColor: Colors.white,
                         minimumSize: Size(300.w, 50.h)),
-                    onPressed: () {
+                    onPressed: () async {
                       context
                           .read<AuthBloc>()
                           .add(AuthEventSendEmailVerification());
@@ -41,7 +41,10 @@ class EmailVerifyPage extends StatelessWidget {
                       'Resend Email Verification',
                       style: AppTextstyle.nunitolightblack,
                     ),
-                  )
+                  ),
+                  // appActionButtion(context, text: 'reset', func: () {
+                  //   context.read<AuthBloc>().add(AuthEventLoggedOut(null));
+                  // })
                 ],
               ),
             ),

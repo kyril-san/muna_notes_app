@@ -76,7 +76,7 @@ class FirebaseAuthProvider implements AuthProvider {
   Future<AuthUser> register(
       {required String email, required String password}) async {
     try {
-      await initialize();
+      // await initialize();
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       final user = currentuser;
@@ -87,7 +87,7 @@ class FirebaseAuthProvider implements AuthProvider {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
-        throw EmailAlreadyInException();
+        throw EmailAlreadyInUseException();
       } else if (e.code == 'invalid-email') {
         throw InvalidEmailException();
       } else if (e.code == 'operation-not-allowed') {
