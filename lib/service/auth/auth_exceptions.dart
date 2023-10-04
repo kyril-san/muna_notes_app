@@ -10,7 +10,7 @@ class UserNotFoundException extends AuthExceptions {}
 
 class UserDisabledException extends AuthExceptions {}
 
-class WrondPasswordException extends AuthExceptions {}
+class WrongPasswordException extends AuthExceptions {}
 
 class EmailAlreadyInUseException extends AuthExceptions {}
 

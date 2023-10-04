@@ -13,6 +13,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(AuthProvider provider)
       : super(const AuthStateInitialize(isLoading: true)) {
+    //! on App Initialization
     on<AuthEventInitialize>((event, emit) async {
       // await Future.delayed(Duration(seconds: 3));
       await provider.initialize();
@@ -26,10 +27,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
+//! To take it to Register Page
     on<AuthEventShouldRegister>((event, emit) {
       emit(AuthStateRegistering(isLoading: false, exception: null));
     });
 
+//! App Login
     on<AuthEventLogIn>((event, emit) async {
       emit(AuthStateLoggedOut(
           isLoading: true,
@@ -58,6 +61,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
+//! App registration
     on<AuthEventRegistering>((event, emit) async {
       await provider.initialize();
 
@@ -72,12 +76,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
+//! App Send Email Verification
     on<AuthEventSendEmailVerification>((event, emit) async {
       await provider.isemailVerified();
       // await Restart.restartApp();
       emit(state);
     });
 
+//! App Log out
     on<AuthEventLoggedOut>((event, emit) async {
       try {
         await provider.logout();

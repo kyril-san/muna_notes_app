@@ -42,16 +42,16 @@ class _LoginPageState extends State<LoginPage> {
         if (state is AuthStateLoggedOut) {
           if (state.exception is GenericAuthExceptions) {
             await showErrorDialog(context, text: 'Authentication Error!!!');
-          } else if (state is InvalidCredentialsException) {
+          } else if (state.exception is InvalidCredentialsException) {
             await showErrorDialog(context, text: 'Invalid Credentials');
-          } else if (state is InvalidEmailException) {
+          } else if (state.exception is InvalidEmailException) {
             await showErrorDialog(context, text: 'Invalid Email Address Used');
-          } else if (state is UserDisabledException) {
+          } else if (state.exception is UserDisabledException) {
             await showErrorDialog(context,
                 text: 'Your Account has been Disabled.');
-          } else if (state is UserNotFoundException) {
+          } else if (state.exception is UserNotFoundException) {
             await showErrorDialog(context, text: 'Your Account does not exist');
-          } else if (state is WrondPasswordException) {
+          } else if (state.exception is WrongPasswordException) {
             await showErrorDialog(context, text: 'Your Password is Incorrect');
           }
         }

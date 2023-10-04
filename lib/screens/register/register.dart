@@ -42,15 +42,15 @@ class _RegisterPageState extends State<RegisterPage> {
           if (state.exception is InvalidEmailException) {
             await showErrorDialog(context,
                 text: 'The Email Address is Invalid');
-          } else if (state is EmailAlreadyInUseException) {
+          } else if (state.exception is EmailAlreadyInUseException) {
             await showErrorDialog(context,
                 text: 'This Email Address is Already in Use');
-          } else if (state is OperationNotFoundException) {
+          } else if (state.exception is OperationNotFoundException) {
             await showErrorDialog(context,
                 text: 'This Operation is not allowed at the Moment');
-          } else if (state is WeakPasswordException) {
+          } else if (state.exception is WeakPasswordException) {
             await showErrorDialog(context, text: 'The Password is too weak');
-          } else if (state is GenericAuthExceptions) {
+          } else if (state.exception is GenericAuthExceptions) {
             await showErrorDialog(context,
                 text: 'Authentication Error!!! \nTry again Later');
           }
