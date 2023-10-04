@@ -9,6 +9,10 @@ class AuthStateInitialize extends AuthState {
   const AuthStateInitialize();
 }
 
+class AuthStateShouldRegister extends AuthState {
+  const AuthStateShouldRegister();
+}
+
 class AuthStateLoggedIn extends AuthState {
   final AuthUser user;
 

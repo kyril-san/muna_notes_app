@@ -6,7 +6,10 @@ import 'package:muna_notes_app/const/general_colors.dart';
 import 'package:muna_notes_app/const/text_style.dart';
 
 appTextfield(BuildContext context,
-    {String? hint, IconData? icon, IconData? suffixicon}) {
+    {String? hint,
+    IconData? icon,
+    IconData? suffixicon,
+    TextEditingController? controller}) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 20.w),
     padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -26,6 +29,7 @@ appTextfield(BuildContext context,
         SizedBox(width: 10.w),
         Expanded(
           child: TextFormField(
+            controller: controller,
             cursorColor: AppColors.blackcolor,
             style: AppTextstyle.nunitolightblack,
             decoration: InputDecoration(

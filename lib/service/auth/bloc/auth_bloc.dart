@@ -11,6 +11,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(AuthProvider provider) : super(const AuthStateInitialize()) {
     on<AuthEventInitialize>((event, emit) async {
+      await Future.delayed(Duration(seconds: 3));
       await provider.initialize();
       final user = provider.currentuser;
       if (user == null) {
@@ -20,6 +21,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else {
         emit(AuthStateLoggedIn(user: user));
       }
+    });
+
+    on<AuthEventShouldRegister>((event, emit) {
+      emit(AuthStateShouldRegister());
     });
 
     on<AuthEventLogIn>((event, emit) async {

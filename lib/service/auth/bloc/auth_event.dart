@@ -9,6 +9,10 @@ class AuthEventInitialize extends AuthEvent {
   const AuthEventInitialize();
 }
 
+class AuthEventShouldRegister extends AuthEvent {
+  const AuthEventShouldRegister();
+}
+
 class AuthEventLogIn extends AuthEvent {
   final String email;
   final String password;

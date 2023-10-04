@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:muna_notes_app/const/general_colors.dart';
 import 'package:muna_notes_app/firebase_options.dart';
 import 'package:muna_notes_app/screens/homepage/home_page.dart';
+import 'package:muna_notes_app/screens/homepage/load_page_screens.dart';
+import 'package:muna_notes_app/screens/login/email_verify_page.dart';
 import 'package:muna_notes_app/screens/login/login_page.dart';
 import 'package:muna_notes_app/service/auth/bloc/auth_bloc.dart';
 import 'package:muna_notes_app/service/auth/fire_service_auth_provider.dart';
@@ -24,20 +26,22 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(414, 896),
       builder: (context, child) => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Note App',
-          theme: ThemeData(
-            appBarTheme: AppBarTheme(color: AppColors.blackcolor),
-            colorScheme: ColorScheme.dark(
-                brightness: Brightness.dark,
-                background: Color.fromARGB(255, 37, 37, 37),
-                primary: Colors.white),
-            useMaterial3: true,
-          ),
-          home: BlocProvider<AuthBloc>(
-            create: (context) => AuthBloc(FirebaseAuthProvider()),
-            child: LoginPage(),
-          )),
+        debugShowCheckedModeBanner: false,
+        title: 'Note App',
+        theme: ThemeData(
+          appBarTheme: AppBarTheme(color: AppColors.blackcolor),
+          colorScheme: ColorScheme.dark(
+              brightness: Brightness.dark,
+              background: Color.fromARGB(255, 37, 37, 37),
+              primary: Colors.white),
+          useMaterial3: true,
+        ),
+        home: BlocProvider<AuthBloc>(
+          create: (context) =>
+              AuthBloc(FirebaseAuthProvider())..add(AuthEventInitialize()),
+          child: LoadPageScreens(),
+        ),
+      ),
     );
   }
 }
