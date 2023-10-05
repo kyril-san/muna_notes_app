@@ -14,7 +14,6 @@ class LoadPageScreens extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<AuthBloc>().add(AuthEventInitialize());
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state.isLoading) {
@@ -28,12 +27,12 @@ class LoadPageScreens extends StatelessWidget {
       builder: (context, state) {
         if (state is AuthStateLoggedIn) {
           return HomePage();
-        } else if (state is AuthStateLoggedOut) {
-          return LoginPage();
-        } else if (state is AuthStateConfirmEmailVerification) {
-          return EmailVerifyPage();
         } else if (state is AuthStateRegistering) {
           return RegisterPage();
+        } else if (state is AuthStateConfirmEmailVerification) {
+          return EmailVerifyPage();
+        } else if (state is AuthStateLoggedOut) {
+          return LoginPage();
         }
         return Scaffold(
           body: Center(child: CircularProgressIndicator()),

@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:muna_notes_app/const/text_style.dart';
 import 'package:muna_notes_app/utils/helpers/loading_screen_controller.dart';
 
 class LoadingScreen {
@@ -31,16 +32,20 @@ class LoadingScreen {
               maxHeight: size.height * 0.8,
               maxWidth: size.width * 0.8,
               minWidth: size.width * 0.5,
+              minHeight: size.height * 0.2,
             ),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(10.r)),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   height: 10.h,
                 ),
-                CircularProgressIndicator(),
+                CircularProgressIndicator(
+                  color: Colors.black,
+                ),
                 SizedBox(
                   height: 10.h,
                 ),
@@ -51,9 +56,13 @@ class LoadingScreen {
                       return Text(
                         snapshot.data.toString(),
                         textAlign: TextAlign.center,
+                        style: AppTextstyle.nunitolightblack,
                       );
                     } else {
-                      return Container();
+                      return Text(
+                        'Please Wait',
+                        style: AppTextstyle.nunitolightblack,
+                      );
                     }
                   },
                 )

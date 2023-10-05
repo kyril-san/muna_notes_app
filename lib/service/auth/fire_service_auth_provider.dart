@@ -28,7 +28,7 @@ class FirebaseAuthProvider implements AuthProvider {
     if (user != null) {
       await user.sendEmailVerification();
     } else {
-      throw EmailVerificationErrorExceptions();
+      throw UserNotLoggedInException();
     }
   }
 
@@ -68,7 +68,7 @@ class FirebaseAuthProvider implements AuthProvider {
     if (user != null) {
       await FirebaseAuth.instance.signOut();
     } else {
-      throw GenericAuthExceptions();
+      throw UserNotLoggedInException();
     }
   }
 
@@ -83,7 +83,7 @@ class FirebaseAuthProvider implements AuthProvider {
       if (user != null) {
         return user;
       } else {
-        throw InvalidCredentialsException();
+        throw UserNotLoggedInException();
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {

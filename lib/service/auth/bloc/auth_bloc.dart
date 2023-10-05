@@ -63,7 +63,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
 //! App registration
     on<AuthEventRegistering>((event, emit) async {
-      await provider.initialize();
+      // await provider.initialize();
 
       final email = event.email;
       final password = event.password;

@@ -8,6 +8,7 @@ import 'package:muna_notes_app/screens/login/widgets/login_widgets.dart';
 import 'package:muna_notes_app/screens/register/register.dart';
 import 'package:muna_notes_app/service/auth/auth_exceptions.dart';
 import 'package:muna_notes_app/service/auth/bloc/auth_bloc.dart';
+import 'package:muna_notes_app/service/auth/fire_service_auth_provider.dart';
 import 'package:muna_notes_app/utils/dialogs/show_error_dialog.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,10 +18,9 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-late TextEditingController _email;
-late TextEditingController _password;
-
 class _LoginPageState extends State<LoginPage> {
+  late TextEditingController _email;
+  late TextEditingController _password;
   @override
   void initState() {
     super.initState();
@@ -105,6 +105,14 @@ class _LoginPageState extends State<LoginPage> {
                 TextButton(
                   onPressed: () {
                     context.read<AuthBloc>().add(AuthEventShouldRegister());
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => BlocProvider(
+                    //               create: (context) =>
+                    //                   AuthBloc(FirebaseAuthProvider()),
+                    //               child: RegisterPage(),
+                    //             )));
                   },
                   child: Text('If you don\'t have an account, Click Here'),
                 ),

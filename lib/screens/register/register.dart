@@ -16,10 +16,9 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
-late TextEditingController _email;
-late TextEditingController _password;
-
 class _RegisterPageState extends State<RegisterPage> {
+  late TextEditingController _email;
+  late TextEditingController _password;
   @override
   void initState() {
     super.initState();
@@ -103,9 +102,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 TextButton(
                   onPressed: () {
+                    // Navigator.of(context).pop();
                     context.read<AuthBloc>().add(AuthEventLoggedOut());
                   },
-                  child: Text('Tf You have an account, Click here to Log In'),
+                  child: Text('If You have an account, Click here to Log In'),
                 ),
                 Expanded(
                   child: Divider(

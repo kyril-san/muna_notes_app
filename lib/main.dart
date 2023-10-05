@@ -37,7 +37,8 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(FirebaseAuthProvider()),
+          create: (context) =>
+              AuthBloc(FirebaseAuthProvider())..add(AuthEventInitialize()),
           child: LoadPageScreens(),
         ),
       ),
