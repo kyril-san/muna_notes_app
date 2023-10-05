@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muna_notes_app/const/general_colors.dart';
 import 'package:muna_notes_app/const/text_style.dart';
+import 'package:muna_notes_app/service/auth/bloc/auth_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -24,8 +26,10 @@ class HomePage extends StatelessWidget {
             icon: Icon(Icons.search),
           ),
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.info_outline),
+            onPressed: () {
+              context.read<AuthBloc>().add(AuthEventLoggedOut());
+            },
+            icon: Icon(Icons.logout_rounded),
           ),
         ],
       ),

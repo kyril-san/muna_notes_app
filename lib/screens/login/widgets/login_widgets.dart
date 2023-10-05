@@ -6,10 +6,13 @@ import 'package:muna_notes_app/const/general_colors.dart';
 import 'package:muna_notes_app/const/text_style.dart';
 
 appTextfield(BuildContext context,
-    {String? hint,
-    IconData? icon,
+    {required String hint,
+    required IconData icon,
     IconData? suffixicon,
-    TextEditingController? controller}) {
+    IconData? changedsuffixicon,
+    Function()? onpressed,
+    required bool obscure,
+    required TextEditingController? controller}) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 20.w),
     padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -29,6 +32,8 @@ appTextfield(BuildContext context,
         SizedBox(width: 10.w),
         Expanded(
           child: TextFormField(
+            obscureText: obscure,
+            obscuringCharacter: '*',
             controller: controller,
             cursorColor: AppColors.blackcolor,
             style: AppTextstyle.nunitolightblack,
@@ -39,10 +44,10 @@ appTextfield(BuildContext context,
                 border: InputBorder.none,
                 suffixIcon: IconButton(
                   icon: Icon(
-                    suffixicon,
+                    obscure ? changedsuffixicon : suffixicon,
                     color: Colors.black,
                   ),
-                  onPressed: () {},
+                  onPressed: onpressed,
                 )),
           ),
         ),

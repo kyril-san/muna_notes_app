@@ -21,6 +21,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late TextEditingController _email;
   late TextEditingController _password;
+  bool clicked = false;
   @override
   void initState() {
     super.initState();
@@ -37,26 +38,25 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) async {
-        if (state is AuthStateLoggedOut) {
-          if (state.exception is GenericAuthExceptions) {
-            await showErrorDialog(context, text: 'Authentication Error!!!');
-          } else if (state.exception is InvalidCredentialsException) {
-            await showErrorDialog(context, text: 'Invalid Credentials');
-          } else if (state.exception is InvalidEmailException) {
-            await showErrorDialog(context, text: 'Invalid Email Address Used');
-          } else if (state.exception is UserDisabledException) {
-            await showErrorDialog(context,
-                text: 'Your Account has been Disabled.');
-          } else if (state.exception is UserNotFoundException) {
-            await showErrorDialog(context, text: 'Your Account does not exist');
-          } else if (state.exception is WrongPasswordException) {
-            await showErrorDialog(context, text: 'Your Password is Incorrect');
-          }
+    return BlocConsumer<AuthBloc, AuthState>(listener: (context, state) async {
+      if (state is AuthStateLoggedOut) {
+        if (state.exception is GenericAuthExceptions) {
+          await showErrorDialog(context, text: 'Authentication Error!!!');
+        } else if (state.exception is InvalidCredentialsException) {
+          await showErrorDialog(context, text: 'Invalid Credentials');
+        } else if (state.exception is InvalidEmailException) {
+          await showErrorDialog(context, text: 'Invalid Email Address Used');
+        } else if (state.exception is UserDisabledException) {
+          await showErrorDialog(context,
+              text: 'Your Account has been Disabled.');
+        } else if (state.exception is UserNotFoundException) {
+          await showErrorDialog(context, text: 'Your Account does not exist');
+        } else if (state.exception is WrongPasswordException) {
+          await showErrorDialog(context, text: 'Your Password is Incorrect');
         }
-      },
-      child: Scaffold(
+      }
+    }, builder: (context, state) {
+      return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text(
@@ -72,6 +72,7 @@ class _LoginPageState extends State<LoginPage> {
               hint: 'Enter in Your Email Address',
               icon: Icons.email,
               controller: _email,
+              obscure: false,
             ),
             SizedBox(height: 20.h),
             appTextfield(
@@ -79,7 +80,17 @@ class _LoginPageState extends State<LoginPage> {
               hint: 'Enter your Password',
               icon: Icons.lock,
               suffixicon: Icons.visibility,
+              changedsuffixicon: Icons.visibility_off,
               controller: _password,
+              obscure: true,
+              onpressed: () {
+                // context.read<AuthBloc>().add(AuthEventShoworHidePassword(
+                //     isclicked: state.passwordclicked));
+                // setState(() {
+                // state.passwordclicked = !state.passwordclicked;
+
+                // });
+              },
             ),
             SizedBox(height: 20.h),
             appActionButtion(
@@ -125,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
             )
           ],
         ),
-      ),
-    );
+      );
+    });
   }
 }

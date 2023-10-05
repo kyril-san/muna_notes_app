@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:muna_notes_app/const/text_style.dart';
+import 'package:muna_notes_app/screens/login/widgets/login_widgets.dart';
 import 'package:muna_notes_app/service/auth/bloc/auth_bloc.dart';
 
 class EmailVerifyPage extends StatelessWidget {
@@ -22,7 +23,7 @@ class EmailVerifyPage extends StatelessWidget {
                 children: [
                   Text(
                     'An Email verification has been sent to your email.\nIf you did not receive an email, click the button below to resend your email verification link',
-                    style: AppTextstyle.nunitoRegularwhite,
+                    style: AppTextstyle.nunitoLightwhite,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
@@ -42,9 +43,13 @@ class EmailVerifyPage extends StatelessWidget {
                       style: AppTextstyle.nunitolightblack,
                     ),
                   ),
-                  // appActionButtion(context, text: 'reset', func: () {
-                  //   context.read<AuthBloc>().add(AuthEventLoggedOut(null));
-                  // })
+                  SizedBox(
+                    height: 150.h,
+                  ),
+                  appActionButtion(context, text: 'Click here to Login',
+                      func: () {
+                    context.read<AuthBloc>().add(AuthEventLoggedOut());
+                  }),
                 ],
               ),
             ),

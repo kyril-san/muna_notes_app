@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -15,13 +13,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       : super(const AuthStateInitialize(isLoading: true)) {
     //! on App Initialization
     on<AuthEventInitialize>((event, emit) async {
-      // await Future.delayed(Duration(seconds: 3));
       await provider.initialize();
       final user = provider.currentuser;
       if (user == null) {
         emit(AuthStateLoggedOut(exception: null, isLoading: false));
       } else if (!user.isEmailVerified) {
-        emit(AuthStateConfirmEmailVerification(isLoading: false));
+        emit(const AuthStateConfirmEmailVerification(isLoading: false));
       } else {
         emit(AuthStateLoggedIn(user: user, isLoading: false));
       }
@@ -29,7 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
 //! To take it to Register Page
     on<AuthEventShouldRegister>((event, emit) {
-      emit(AuthStateRegistering(isLoading: false, exception: null));
+      emit(const AuthStateRegistering(isLoading: false, exception: null));
     });
 
 //! App Login
@@ -63,14 +60,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
 //! App registration
     on<AuthEventRegistering>((event, emit) async {
-      // await provider.initialize();
-
       final email = event.email;
       final password = event.password;
       try {
         await provider.register(email: email, password: password);
         await provider.isemailVerified();
-        emit(AuthStateConfirmEmailVerification(isLoading: false));
+        emit(const AuthStateConfirmEmailVerification(isLoading: false));
       } on Exception catch (e) {
         emit(AuthStateRegistering(exception: e, isLoading: false));
       }
@@ -79,7 +74,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 //! App Send Email Verification
     on<AuthEventSendEmailVerification>((event, emit) async {
       await provider.isemailVerified();
-      // await Restart.restartApp();
       emit(state);
     });
 

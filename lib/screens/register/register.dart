@@ -71,6 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
               hint: 'Enter in Your Email Address',
               icon: Icons.email,
               controller: _email,
+              obscure: false,
             ),
             SizedBox(height: 20.h),
             appTextfield(
@@ -79,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
               icon: Icons.lock,
               suffixicon: Icons.visibility,
               controller: _password,
+              obscure: false,
             ),
             SizedBox(height: 20.h),
             appActionButtion(
