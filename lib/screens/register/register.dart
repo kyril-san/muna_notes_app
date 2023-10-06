@@ -19,6 +19,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   late TextEditingController _email;
   late TextEditingController _password;
+  bool clicked = true;
   @override
   void initState() {
     super.initState();
@@ -74,14 +75,17 @@ class _RegisterPageState extends State<RegisterPage> {
               obscure: false,
             ),
             SizedBox(height: 20.h),
-            appTextfield(
-              context,
-              hint: 'Enter your Password',
-              icon: Icons.lock,
-              suffixicon: Icons.visibility,
-              controller: _password,
-              obscure: false,
-            ),
+            appTextfield(context,
+                hint: 'Enter your Password',
+                icon: Icons.lock,
+                suffixicon: Icons.visibility,
+                changedsuffixicon: Icons.visibility_off,
+                controller: _password,
+                obscure: clicked, onpressed: () {
+              setState(() {
+                clicked = !clicked;
+              });
+            }),
             SizedBox(height: 20.h),
             appActionButtion(
               context,

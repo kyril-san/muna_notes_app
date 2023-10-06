@@ -21,7 +21,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late TextEditingController _email;
   late TextEditingController _password;
-  bool clicked = false;
+  bool clicked = true;
   @override
   void initState() {
     super.initState();
@@ -82,14 +82,13 @@ class _LoginPageState extends State<LoginPage> {
               suffixicon: Icons.visibility,
               changedsuffixicon: Icons.visibility_off,
               controller: _password,
-              obscure: true,
+              obscure: clicked,
               onpressed: () {
                 // context.read<AuthBloc>().add(AuthEventShoworHidePassword(
                 //     isclicked: state.passwordclicked));
-                // setState(() {
-                // state.passwordclicked = !state.passwordclicked;
-
-                // });
+                setState(() {
+                  clicked = !clicked;
+                });
               },
             ),
             SizedBox(height: 20.h),
