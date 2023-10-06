@@ -22,7 +22,7 @@ class CloudService implements CloudProvider {
   }
 
   @override
-  Stream<Iterable<CloudNote>> getNotes({required String getuserid}) {
+  Future<Iterable<CloudNote>> getNotes({required String getuserid}) {
     return provider.getNotes(getuserid: getuserid);
   }
 

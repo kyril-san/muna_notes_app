@@ -14,7 +14,7 @@ class NoteStateserviceInitial extends NoteserviceState {}
 class NoteStateserviceLoading extends NoteserviceState {}
 
 class NoteStateserviceSuccess extends NoteserviceState {
-  final Stream<Iterable<CloudNote>> notes;
+  final Iterable<CloudNote> notes;
 
   NoteStateserviceSuccess(this.notes);
 }

@@ -10,11 +10,10 @@ part 'noteservice_state.dart';
 
 class NoteserviceBloc extends Bloc<NoteserviceEvent, NoteserviceState> {
   NoteserviceBloc(CloudProvider provider) : super(NoteStateserviceInitial()) {
-    on<NoteEventInitialize>((event, emit) {
+    on<NoteEventInitialize>((event, emit) async {
       emit(NoteStateserviceLoading());
       try {
-        final allnotes = provider.getNotes(getuserid: provider.userId);
-
+        final allnotes = await provider.getNotes(getuserid: provider.userId);
         emit(NoteStateserviceSuccess(allnotes));
       } on Exception catch (e) {
         emit(NoteStateserviceError(e));
@@ -26,8 +25,10 @@ class NoteserviceBloc extends Bloc<NoteserviceEvent, NoteserviceState> {
         final title = event.title;
         final content = event.content;
         final newnote = await provider.createNote(
-            userid: provider.userId, title: title, content: content);
-        emit(NoteStateserviceSuccess(newnote as Stream<Iterable<CloudNote>>));
+            userid: provider.userId,
+            title: title,
+            content: content) as Iterable<CloudNote>;
+        emit(NoteStateserviceSuccess(newnote));
       } on Exception catch (e) {
         emit(NoteStateserviceError(e));
       }

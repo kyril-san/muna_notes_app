@@ -31,14 +31,14 @@ Future<bool> showcontentdialog(BuildContext context,
           ),
           actions: [
             TextButton(
-                onPressed: <bool>() {
+                onPressed: <bool>() async {
                   print('clicked / false');
 
                   return false;
                 },
                 child: Text('Cancel')),
             TextButton(
-                onPressed: <bool>() {
+                onPressed: <bool>() async {
                   print('clicked / true');
                   return true;
                 },
@@ -85,6 +85,7 @@ emptynotes(BuildContext context) {
 
 notesList(BuildContext context, {required Iterable<CloudNote> notes}) {
   return ListView.builder(
+    itemCount: notes.length,
     itemBuilder: (context, index) {
       return Card(
         color: Colors.red,

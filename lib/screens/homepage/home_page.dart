@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () async {
               final result = await showcontentdialog(context,
                   controller1: _title, controller2: _content);
-              if (result) {
+              if (result == true) {
                 final title = _title.text;
                 final content = _content.text;
                 context.read<NoteserviceBloc>().add(
@@ -75,9 +75,11 @@ class _HomePageState extends State<HomePage> {
           body: BlocBuilder<NoteserviceBloc, NoteserviceState>(
             builder: (context, state) {
               if (state is NoteStateserviceSuccess) {
-                final note = state.notes as Iterable<CloudNote>;
+                final note = state.notes;
 
-                return notesList(context, notes: note);
+                return note.isEmpty
+                    ? emptynotes(context)
+                    : notesList(context, notes: note);
               } else if (state is NoteStateserviceLoading) {
                 return Center(child: CircularProgressIndicator());
               } else if (state is NoteStateserviceError) {
