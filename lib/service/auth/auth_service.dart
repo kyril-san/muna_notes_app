@@ -1,10 +1,13 @@
 import 'package:muna_notes_app/service/auth/auth_provider.dart';
 import 'package:muna_notes_app/service/auth/auth_user.dart';
+import 'package:muna_notes_app/service/auth/fire_service_auth_provider.dart';
 
 class Authservice implements AuthProvider {
   final AuthProvider provider;
 
   Authservice(this.provider);
+
+  factory Authservice.firebase() => Authservice(FirebaseAuthProvider());
 
   @override
   AuthUser? get currentuser => provider.currentuser;

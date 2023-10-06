@@ -9,15 +9,12 @@ abstract class NoteserviceState extends Equatable {
   List<Object> get props => [];
 }
 
-class NoteStateserviceInitial extends NoteserviceState {
-  // final FirebaseCloudService notes;
-  const NoteStateserviceInitial();
-}
+class NoteStateserviceInitial extends NoteserviceState {}
 
 class NoteStateserviceLoading extends NoteserviceState {}
 
 class NoteStateserviceSuccess extends NoteserviceState {
-  final FirebaseCloudService notes;
+  final Stream<Iterable<CloudNote>> notes;
 
   NoteStateserviceSuccess(this.notes);
 }

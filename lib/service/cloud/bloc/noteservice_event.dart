@@ -12,7 +12,7 @@ class NoteEventInitialize extends NoteserviceEvent {}
 class NoteEventCreateNewNote extends NoteserviceEvent {
   final String title;
   final String content;
-  const NoteEventCreateNewNote(this.title, this.content);
+  const NoteEventCreateNewNote({required this.title, required this.content});
 }
 
 class NoteEventGetNotes extends NoteserviceEvent {}

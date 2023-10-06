@@ -1,3 +1,4 @@
+import 'package:muna_notes_app/service/cloud/cloud_action_service.dart';
 import 'package:muna_notes_app/service/cloud/cloud_note.dart';
 import 'package:muna_notes_app/service/cloud/cloud_provider.dart';
 
@@ -5,6 +6,8 @@ class CloudService implements CloudProvider {
   final CloudProvider provider;
 
   CloudService(this.provider);
+
+  factory CloudService.firebase() => CloudService(FirebaseCloudService());
   @override
   Future<CloudNote> createNote(
       {required String userid,

@@ -14,6 +14,7 @@ class NoteserviceBloc extends Bloc<NoteserviceEvent, NoteserviceState> {
       emit(NoteStateserviceLoading());
       try {
         final allnotes = provider.getNotes(getuserid: provider.userId);
+
         emit(NoteStateserviceSuccess(allnotes));
       } on Exception catch (e) {
         emit(NoteStateserviceError(e));
@@ -31,5 +32,6 @@ class NoteserviceBloc extends Bloc<NoteserviceEvent, NoteserviceState> {
         emit(NoteStateserviceError(e));
       }
     });
+    on<NoteEventDeleteNotes>((event, emit) {});
   }
 }
