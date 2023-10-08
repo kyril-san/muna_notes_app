@@ -5,9 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:muna_notes_app/const/text_style.dart';
 import 'package:muna_notes_app/service/cloud/cloud_note.dart';
 
-Future<bool> showcontentdialog(BuildContext context,
+Future<void> showcontentdialog(BuildContext context,
     {required TextEditingController controller1,
     required TextEditingController controller2,
+    required Function()? okfunction,
     String? text}) {
   final option = showDialog<bool>(
       context: context,
@@ -31,21 +32,14 @@ Future<bool> showcontentdialog(BuildContext context,
           ),
           actions: [
             TextButton(
-                onPressed: <bool>() async {
-                  print('clicked / false');
-
-                  return false;
+                onPressed: () {
+                  Navigator.of(context).pop();
                 },
                 child: Text('Cancel')),
-            TextButton(
-                onPressed: <bool>() async {
-                  print('clicked / true');
-                  return true;
-                },
-                child: Text('Ok')),
+            TextButton(onPressed: okfunction, child: Text('Ok')),
           ],
         );
-      }).then((value) => value ?? false);
+      });
   return option;
 }
 
@@ -54,6 +48,7 @@ notesTextformfield(
     String? hintText,
     bool content = false}) {
   return TextFormField(
+    controller: controller,
     maxLines: content ? 4 : 1,
     decoration: InputDecoration(
       hintText: hintText,

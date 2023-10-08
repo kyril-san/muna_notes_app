@@ -44,14 +44,16 @@ class _HomePageState extends State<HomePage> {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
-              final result = await showcontentdialog(context,
-                  controller1: _title, controller2: _content);
-              if (result == true) {
+              await showcontentdialog(context,
+                  controller1: _title,
+                  controller2: _content, okfunction: () async {
                 final title = _title.text;
                 final content = _content.text;
                 context.read<NoteserviceBloc>().add(
-                    NoteEventCreateNewNote(title: title, content: content));
-              }
+                      NoteEventCreateNewNote(title: title, content: content),
+                    );
+                Navigator.of(context).pop();
+              });
             },
             shape: CircleBorder(),
             backgroundColor: AppColors.blackcolor,
