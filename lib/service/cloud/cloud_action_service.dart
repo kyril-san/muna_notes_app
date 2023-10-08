@@ -14,13 +14,21 @@ class FirebaseCloudService implements CloudProvider {
   final notes = FirebaseFirestore.instance.collection(appnotes);
   @override
   Future<Iterable<CloudNote>> getNotes({required String getuserid}) async {
-    final getallnotes =
-        await notes.where(appuserid, isEqualTo: getuserid).get();
+    final getallnotes = notes
+        .where(appuserid, isEqualTo: getuserid)
+        .get()
+        .then((value) => value.docs.map((e) => CloudNote.fromFirebase(e)));
+
+    //! tried experiment to see if I could still use a stream<Iterable<Cloudnote>> here
     // .map((event) => event.docs.map((e) => CloudNote.fromFirebase(e)));
     // map((event) => event.docs.map((e) => CloudNote.fromFirebase(e)));
     // .map((event) => event.docs.map((e) => CloudNote.fromMap(e.data())));
-    final allnotes = getallnotes.docs.map((e) => CloudNote.fromFirebase(e));
-    return allnotes;
+    // final allnotes = getallnotes.docs.map((e) => CloudNote.fromFirebase(e));
+    // final allnotes = getallnotes.asyncExpand((event) async* {
+    //   yield event.docs.map((e) => CloudNote.fromFirebase(e));
+    // });
+
+    return getallnotes;
   }
 
   @override

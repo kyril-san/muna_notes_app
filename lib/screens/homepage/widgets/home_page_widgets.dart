@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:muna_notes_app/const/text_style.dart';
 import 'package:muna_notes_app/service/cloud/cloud_note.dart';
+import 'package:random_color/random_color.dart';
 
 Future<void> showcontentdialog(BuildContext context,
     {required TextEditingController controller1,
@@ -78,15 +81,51 @@ emptynotes(BuildContext context) {
   );
 }
 
-notesList(BuildContext context, {required Iterable<CloudNote> notes}) {
+notesList(
+  BuildContext context, {
+  required Iterable<CloudNote> notes,
+  required Function(CloudNote note)? onedit,
+  required Function(CloudNote note)? ondelete,
+}) {
   return ListView.builder(
     itemCount: notes.length,
     itemBuilder: (context, index) {
-      return Card(
-        color: Colors.red,
-        child: ListTile(
-          title: Text(notes.elementAt(index).title),
-          subtitle: Text(notes.elementAt(index).content),
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+        child: Slidable(
+          dragStartBehavior: DragStartBehavior.start,
+          startActionPane: ActionPane(
+            motion: StretchMotion(),
+            children: [
+              SlidableAction(
+                icon: Icons.delete,
+                label: 'Delete',
+                borderRadius: BorderRadius.circular(10.r),
+                backgroundColor: Colors.red,
+                onPressed: (context) {
+                  ondelete!(notes.elementAt(index));
+                },
+              )
+            ],
+          ),
+          child: Card(
+            color: RandomColor().randomColor(
+                debug: true,
+                colorSaturation: ColorSaturation.highSaturation,
+                colorBrightness: ColorBrightness.light),
+            child: ListTile(
+              onTap: () => onedit!(notes.elementAt(index)),
+              leading: Icon(Icons.book),
+              title: Text(
+                notes.elementAt(index).title.toUpperCase(),
+                style: AppTextstyle.nunitoRegularblack,
+              ),
+              subtitle: Text(
+                notes.elementAt(index).content,
+                style: AppTextstyle.nunitolightblack,
+              ),
+            ),
+          ),
         ),
       );
     },

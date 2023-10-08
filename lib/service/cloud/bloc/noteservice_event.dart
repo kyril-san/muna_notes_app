@@ -17,6 +17,15 @@ class NoteEventCreateNewNote extends NoteserviceEvent {
 
 class NoteEventGetNotes extends NoteserviceEvent {}
 
-class NoteEventUpdateNote extends NoteserviceEvent {}
+class NoteEventUpdateNote extends NoteserviceEvent {
+  final String documentId;
+  final String title;
+  final String content;
+  const NoteEventUpdateNote(
+      {required this.documentId, required this.title, required this.content});
+}
 
-class NoteEventDeleteNotes extends NoteserviceEvent {}
+class NoteEventDeleteNotes extends NoteserviceEvent {
+  final String documentId;
+  const NoteEventDeleteNotes({required this.documentId});
+}

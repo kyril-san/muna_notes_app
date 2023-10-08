@@ -39,7 +39,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NoteserviceBloc, NoteserviceState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is NoteStateserviceInitial) {
+          context.read<NoteserviceBloc>().add(NoteEventInitialize());
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
@@ -52,6 +56,8 @@ class _HomePageState extends State<HomePage> {
                 context.read<NoteserviceBloc>().add(
                       NoteEventCreateNewNote(title: title, content: content),
                     );
+                _title.clear();
+                _content.clear();
                 Navigator.of(context).pop();
               });
             },
@@ -81,7 +87,11 @@ class _HomePageState extends State<HomePage> {
 
                 return note.isEmpty
                     ? emptynotes(context)
-                    : notesList(context, notes: note);
+                    : notesList(context, notes: note, onedit: (note) async {},
+                        ondelete: (CloudNote note) async {
+                        context.read<NoteserviceBloc>().add(
+                            NoteEventDeleteNotes(documentId: note.documentID));
+                      });
               } else if (state is NoteStateserviceLoading) {
                 return Center(child: CircularProgressIndicator());
               } else if (state is NoteStateserviceError) {
