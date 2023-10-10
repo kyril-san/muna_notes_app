@@ -67,10 +67,6 @@ class _HomePageState extends State<HomePage> {
             title: Text('Notes', style: AppTextstyle.nunitoSemiBoldwhite),
             actions: [
               IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.search),
-              ),
-              IconButton(
                 onPressed: () {
                   context.read<AuthBloc>().add(const AuthEventLoggedOut());
                 },
