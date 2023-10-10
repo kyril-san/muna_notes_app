@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muna_notes_app/const/general_colors.dart';
@@ -23,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    context.read<NoteserviceBloc>().add(NoteEventInitialize());
+    context.read<NoteserviceBloc>().add(const NoteEventInitialize());
 
     _title = TextEditingController();
     _content = TextEditingController();
@@ -41,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     return BlocConsumer<NoteserviceBloc, NoteserviceState>(
       listener: (context, state) {
         if (state is NoteStateserviceInitial) {
-          context.read<NoteserviceBloc>().add(NoteEventInitialize());
+          context.read<NoteserviceBloc>().add(const NoteEventInitialize());
         }
       },
       builder: (context, state) {
@@ -61,22 +59,22 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context).pop();
               });
             },
-            shape: CircleBorder(),
+            shape: const CircleBorder(),
             backgroundColor: AppColors.blackcolor,
-            child: Icon(Icons.add, size: 36, color: Colors.white),
+            child: const Icon(Icons.add, size: 36, color: Colors.white),
           ),
           appBar: AppBar(
             title: Text('Notes', style: AppTextstyle.nunitoSemiBoldwhite),
             actions: [
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.search),
+                icon: const Icon(Icons.search),
               ),
               IconButton(
                 onPressed: () {
-                  context.read<AuthBloc>().add(AuthEventLoggedOut());
+                  context.read<AuthBloc>().add(const AuthEventLoggedOut());
                 },
-                icon: Icon(Icons.logout_rounded),
+                icon: const Icon(Icons.logout_rounded),
               ),
             ],
           ),
@@ -93,9 +91,9 @@ class _HomePageState extends State<HomePage> {
                             NoteEventDeleteNotes(documentId: note.documentID));
                       });
               } else if (state is NoteStateserviceLoading) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (state is NoteStateserviceError) {
-                return Text('Error');
+                return const Text('Error');
               }
               return Container();
             },

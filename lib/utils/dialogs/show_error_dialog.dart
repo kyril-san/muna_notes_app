@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -11,11 +9,11 @@ Future<void> showErrorDialog(BuildContext context, {required String text}) {
           alignment: Alignment.center,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-          icon: Icon(
+          icon: const Icon(
             Icons.error,
             color: Colors.red,
           ),
-          title: Text('Error'),
+          title: const Text('Error'),
           content: Text(
             text,
             textAlign: TextAlign.center,

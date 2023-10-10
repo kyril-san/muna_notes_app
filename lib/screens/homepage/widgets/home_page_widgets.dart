@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +15,7 @@ Future<void> showcontentdialog(BuildContext context,
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Add A New Note'),
+          title: const Text('Add A New Note'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -38,8 +36,8 @@ Future<void> showcontentdialog(BuildContext context,
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Cancel')),
-            TextButton(onPressed: okfunction, child: Text('Ok')),
+                child: const Text('Cancel')),
+            TextButton(onPressed: okfunction, child: const Text('Ok')),
           ],
         );
       });
@@ -95,7 +93,7 @@ notesList(
         child: Slidable(
           dragStartBehavior: DragStartBehavior.start,
           startActionPane: ActionPane(
-            motion: StretchMotion(),
+            motion: const StretchMotion(),
             children: [
               SlidableAction(
                 icon: Icons.delete,
@@ -115,7 +113,7 @@ notesList(
                 colorBrightness: ColorBrightness.light),
             child: ListTile(
               onTap: () => onedit!(notes.elementAt(index)),
-              leading: Icon(Icons.book),
+              leading: const Icon(Icons.book),
               title: Text(
                 notes.elementAt(index).title.toUpperCase(),
                 style: AppTextstyle.nunitoRegularblack,

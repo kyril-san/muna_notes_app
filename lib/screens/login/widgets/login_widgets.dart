@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:muna_notes_app/const/general_colors.dart';
@@ -62,7 +60,7 @@ appActionButtion(BuildContext context, {String text = '', Function()? func}) {
         backgroundColor: AppColors.greycolor,
         fixedSize: Size(370.w, 50.h),
         // padding: EdgeInsets.symmetric(horizontal: 50.w),
-        shape: StadiumBorder()),
+        shape: const StadiumBorder()),
     onPressed: func,
     child: Text(
       text,

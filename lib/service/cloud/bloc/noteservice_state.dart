@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors_in_immutables
-
 part of 'noteservice_bloc.dart';
 
 abstract class NoteserviceState extends Equatable {
@@ -9,18 +7,22 @@ abstract class NoteserviceState extends Equatable {
   List<Object> get props => [];
 }
 
-class NoteStateserviceInitial extends NoteserviceState {}
+class NoteStateserviceInitial extends NoteserviceState {
+  const NoteStateserviceInitial();
+}
 
-class NoteStateserviceLoading extends NoteserviceState {}
+class NoteStateserviceLoading extends NoteserviceState {
+  const NoteStateserviceLoading();
+}
 
 class NoteStateserviceSuccess extends NoteserviceState {
   final Iterable<CloudNote> notes;
 
-  NoteStateserviceSuccess(this.notes);
+  const NoteStateserviceSuccess(this.notes);
 }
 
 class NoteStateserviceError extends NoteserviceState {
   final Exception? exception;
 
-  NoteStateserviceError(this.exception);
+  const NoteStateserviceError(this.exception);
 }

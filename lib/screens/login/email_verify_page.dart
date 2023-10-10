@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,7 +34,7 @@ class EmailVerifyPage extends StatelessWidget {
                     onPressed: () async {
                       context
                           .read<AuthBloc>()
-                          .add(AuthEventSendEmailVerification());
+                          .add(const AuthEventSendEmailVerification());
                     },
                     child: Text(
                       'Resend Email Verification',
@@ -48,7 +46,7 @@ class EmailVerifyPage extends StatelessWidget {
                   ),
                   appActionButtion(context, text: 'Click here to Login',
                       func: () {
-                    context.read<AuthBloc>().add(AuthEventLoggedOut());
+                    context.read<AuthBloc>().add(const AuthEventLoggedOut());
                   }),
                 ],
               ),

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muna_notes_app/screens/homepage/home_page.dart';
@@ -26,15 +24,15 @@ class LoadPageScreens extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is AuthStateLoggedIn) {
-          return HomePage();
+          return const HomePage();
         } else if (state is AuthStateRegistering) {
-          return RegisterPage();
+          return const RegisterPage();
         } else if (state is AuthStateConfirmEmailVerification) {
-          return EmailVerifyPage();
+          return const EmailVerifyPage();
         } else if (state is AuthStateLoggedOut) {
-          return LoginPage();
+          return const LoginPage();
         }
-        return Scaffold(
+        return const Scaffold(
           body: Center(child: CircularProgressIndicator()),
         );
       },

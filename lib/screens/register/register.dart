@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -101,7 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(height: 50.h),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Divider(
                     color: Colors.white,
                   ),
@@ -109,11 +107,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 TextButton(
                   onPressed: () {
                     // Navigator.of(context).pop();
-                    context.read<AuthBloc>().add(AuthEventLoggedOut());
+                    context.read<AuthBloc>().add(const AuthEventLoggedOut());
                   },
-                  child: Text('If You have an account, Click here to Log In'),
+                  child: const Text(
+                      'If You have an account, Click here to Log In'),
                 ),
-                Expanded(
+                const Expanded(
                   child: Divider(
                     color: Colors.white,
                   ),

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:muna_notes_app/service/cloud/cloud_note.dart';
@@ -9,9 +7,10 @@ part 'noteservice_event.dart';
 part 'noteservice_state.dart';
 
 class NoteserviceBloc extends Bloc<NoteserviceEvent, NoteserviceState> {
-  NoteserviceBloc(CloudProvider provider) : super(NoteStateserviceInitial()) {
+  NoteserviceBloc(CloudProvider provider)
+      : super(const NoteStateserviceInitial()) {
     on<NoteEventInitialize>((event, emit) async {
-      emit(NoteStateserviceLoading());
+      emit(const NoteStateserviceLoading());
       try {
         final allnotes = await provider.getNotes(getuserid: provider.userId);
 
@@ -50,13 +49,13 @@ class NoteserviceBloc extends Bloc<NoteserviceEvent, NoteserviceState> {
       }
     });
     on<NoteEventCreateNewNote>((event, emit) async {
-      emit(NoteStateserviceLoading());
+      emit(const NoteStateserviceLoading());
       try {
         final title = event.title;
         final content = event.content;
         await provider.createNote(
             userid: provider.userId, title: title, content: content);
-        emit(NoteStateserviceInitial());
+        emit(const NoteStateserviceInitial());
       } on Exception catch (e) {
         emit(NoteStateserviceError(e));
       }
@@ -64,7 +63,7 @@ class NoteserviceBloc extends Bloc<NoteserviceEvent, NoteserviceState> {
     on<NoteEventDeleteNotes>((event, emit) async {
       try {
         await provider.deleteNote(documentId: event.documentId);
-        emit(NoteStateserviceInitial());
+        emit(const NoteStateserviceInitial());
       } on Exception catch (e) {
         emit(NoteStateserviceError(e));
       }
@@ -77,7 +76,7 @@ class NoteserviceBloc extends Bloc<NoteserviceEvent, NoteserviceState> {
       try {
         await provider.updateNote(
             documentId: documentId, title: title, content: content);
-        emit(NoteStateserviceInitial());
+        emit(const NoteStateserviceInitial());
       } on Exception catch (e) {
         emit(NoteStateserviceError(e));
       }

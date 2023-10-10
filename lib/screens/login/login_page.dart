@@ -1,14 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:muna_notes_app/const/text_style.dart';
 import 'package:muna_notes_app/screens/login/widgets/login_widgets.dart';
-import 'package:muna_notes_app/screens/register/register.dart';
 import 'package:muna_notes_app/service/auth/auth_exceptions.dart';
 import 'package:muna_notes_app/service/auth/bloc/auth_bloc.dart';
-import 'package:muna_notes_app/service/auth/fire_service_auth_provider.dart';
 import 'package:muna_notes_app/utils/dialogs/show_error_dialog.dart';
 
 class LoginPage extends StatefulWidget {
@@ -106,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 50.h),
             Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Divider(
                     color: Colors.white,
                   ),
@@ -114,7 +110,9 @@ class _LoginPageState extends State<LoginPage> {
                 // Text(" If you don't have an account"),
                 TextButton(
                   onPressed: () {
-                    context.read<AuthBloc>().add(AuthEventShouldRegister());
+                    context
+                        .read<AuthBloc>()
+                        .add(const AuthEventShouldRegister());
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(
@@ -124,9 +122,10 @@ class _LoginPageState extends State<LoginPage> {
                     //               child: RegisterPage(),
                     //             )));
                   },
-                  child: Text('If you don\'t have an account, Click Here'),
+                  child:
+                      const Text('If you don\'t have an account, Click Here'),
                 ),
-                Expanded(
+                const Expanded(
                   child: Divider(
                     color: Colors.white,
                   ),

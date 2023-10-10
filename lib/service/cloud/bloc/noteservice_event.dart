@@ -7,7 +7,9 @@ abstract class NoteserviceEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class NoteEventInitialize extends NoteserviceEvent {}
+class NoteEventInitialize extends NoteserviceEvent {
+  const NoteEventInitialize();
+}
 
 class NoteEventCreateNewNote extends NoteserviceEvent {
   final String title;
